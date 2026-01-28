@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Prueba Cognito</title>
 
+  <!-- AWS SDK -->
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1370.0.min.js"></script>
+</head>
+<body>
+
+<h2>Prueba Cognito</h2>
+<button onclick="probar()">Probar credenciales</button>
+
+<script src="aws-config.js"></script>
+
+<script>
+function probar() {
+
+  AWS.config.region = awsConfig.region;
+
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: awsConfig.identityPoolId
+  });
+
+  AWS.config.credentials.get(function (err) {
+    if (err) {
+      console.error("❌ Error Cognito", err);
+    } else {
+      console.log("✅ Credenciales obtenidas");
+      console.log("AccessKey:", AWS.config.credentials.accessKeyId);
+    }
+  });
+
+}
+</script>
+
+</body>
+</html>
